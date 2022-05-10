@@ -29,10 +29,11 @@ public class JavaFxApplication extends Application {
     public void start(Stage stage) {
         FxWeaver fxWeaver = applicationContext.getBean(FxWeaver.class);
         Parent root = fxWeaver.loadView(MainController.class);
+
         Scene scene = new Scene(root, 1100, 700);
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setScene(scene);
-        stage.setTitle("Seyahat Acentesi");
+        stage.setTitle("Alegria - Travel Agency");
         scene.setFill(Color.TRANSPARENT);
         stage.show();
     }

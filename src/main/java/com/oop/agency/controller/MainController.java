@@ -1,80 +1,91 @@
 package com.oop.agency.controller;
 
-import com.oop.agency.model.City;
-import com.oop.agency.model.Hotel;
-import com.oop.agency.repository.CityRepository;
-import com.oop.agency.repository.HotelRepository;
-import io.github.palexdev.materialfx.controls.MFXComboBox;
-import io.github.palexdev.materialfx.utils.others.FunctionalStringConverter;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.font.MFXFontIcon;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
-import javafx.util.StringConverter;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.*;
+import javafx.stage.Stage;
+import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
+
+import javax.print.DocFlavor;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 @Component
 @FxmlView("../home.fxml")
-public class MainController {
-    private ObservableList<City> city_list;
+public class MainController implements Initializable {
+    private double xOffset;
+    private double yOffset;
 
     @FXML
     private FlowPane itemPane;
 
     @FXML
-    private MFXComboBox city_cbx;
-
-    @Autowired
-    CityRepository cityRepository;
-
-    @Autowired
-    HotelRepository hotelRepository;
-
-    // singleton pattern
-    public ObservableList<City> getCity_list() {
-        if(this.city_list == null) {
-            this.city_list = FXCollections.observableArrayList(cityRepository.findAll());
-        }
-        return city_list;
-    }
-
-    public ObservableList<Hotel> getHotel_list() {
-        City selectedCity = (City) city_cbx.getSelectedItem();
-        return FXCollections.observableArrayList(hotelRepository.findByCity(selectedCity));
-    }
+    private AnchorPane rootPane;
 
     @FXML
-    public void initialize() {
-        StringConverter<City> converter = FunctionalStringConverter.to(city -> (city == null) ? "" : city.getSehir_adi());
-        city_cbx.setConverter(converter);
-        city_cbx.setItems(getCity_list());
+    private MFXFontIcon closeIcon;
+
+    @FXML
+    private MFXFontIcon minimizeIcon;
+
+    @FXML
+    private VBox navBar;
+
+    @FXML
+    private StackPane contentPane;
+
+    @Autowired
+    private ApplicationContext context;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        closeIcon.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> Platform.exit());
+        minimizeIcon.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> ((Stage) rootPane.getScene().getWindow()).setIconified(true));
+
+        rootPane.setOnMousePressed(event -> {
+            Stage stage = (Stage) rootPane.getScene().getWindow();
+            xOffset = stage.getX() - event.getScreenX();
+            yOffset = stage.getY() - event.getScreenY();
+        });
+
+        rootPane.setOnMouseDragged(event -> {
+            Stage stage = (Stage) rootPane.getScene().getWindow();
+            stage.setX(event.getScreenX() + xOffset);
+            stage.setY(event.getScreenY() + yOffset);
+        });
+
+        navigate(HotelController.class);
     }
 
-    public void search(ActionEvent actionEvent) throws IOException {
-        itemPane.getChildren().clear();
-        for(Hotel hotel : getHotel_list()) {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../component/item.fxml"));
-            GridPane gridPane = loader.load();
+    public void navigate(Class<?> controller) {
+        contentPane.getChildren().clear();
 
-            Image image = new Image(hotel.getOtel_url());
-            ImageView imageView = (ImageView) gridPane.lookup("#item_img");
-            imageView.setImage(image);
+        FxWeaver fxWeaver = context.getBean(FxWeaver.class);
+        Parent root = fxWeaver.loadView(controller);
 
-            Label title_lbl = (Label) gridPane.lookup("#title_lbl");
-            title_lbl.setText(hotel.getOtel_adi());
-            Label city_lbl = (Label) gridPane.lookup("#city_lbl");
-            city_lbl.setText(hotel.getCity().getSehir_adi());
+        contentPane.getChildren().add(root);
+    }
 
-            itemPane.getChildren().add(gridPane);
-        }
+    public void navClick(ActionEvent actionEvent) {
+        MFXButton button = (MFXButton) actionEvent.getSource();
+
+        if (button.getId() == "hotels")
+            navigate(HotelController.class);
+        else
+            navigate(null);
     }
 }
