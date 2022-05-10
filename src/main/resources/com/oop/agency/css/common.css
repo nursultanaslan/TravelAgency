@@ -1,0 +1,7 @@
+.mfx-combo-box {
+	-fx-border-color:  #f51251;
+}
+
+.mfx-combo-box .floating-text {
+	-fx-text-fill:  #f51251;
+}
