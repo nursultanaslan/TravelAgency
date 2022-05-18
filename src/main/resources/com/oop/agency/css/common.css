@@ -1,7 +1,29 @@
-.mfx-combo-box {
-	-fx-border-color:  #f51251;
+* {
+    -primary-color: #f51251;
 }
 
 .mfx-combo-box .floating-text {
-	-fx-text-fill:  #f51251;
+	-fx-text-fill: -primary-color;
+}
+
+.mfx-combo-box:focus-within {
+	-fx-border-color: -primary-color;
+}
+
+.mfx-combo-box:focus-within .caret .mfx-font-icon {
+	-mfx-color: derive(-primary-color, 25%);
+}
+
+.mfx-combo-box .virtual-flow {
+	-track-color: derive(-primary-color, 90%);
+	-thumb-color: derive(-primary-color, 50%);
+	-thumb-hover-color: derive(-primary-color, 25%);
+}
+
+.mfx-combo-box .virtual-flow .mfx-combo-box-cell:hover {
+	-fx-background-color: derive(-primary-color, 90%);
+}
+
+.mfx-combo-box .virtual-flow .mfx-combo-box-cell:selected {
+	-fx-background-color: derive(-primary-color, 50%);
 }

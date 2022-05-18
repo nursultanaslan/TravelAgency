@@ -7,8 +7,8 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane prefHeight="500.0" prefWidth="500.0" stylesheets="../css/common.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="com.oop.agency.controller.DetailController">
+<GridPane prefHeight="500.0" prefWidth="500.0" stylesheets="css/common.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="com.oop.agency.controller.HReserveController">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
@@ -24,7 +24,7 @@
         <MFXDatePicker fx:id="date" floatingText="Tarih" prefWidth="150.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
         <MFXTextField fx:id="email" floatingText="E-posta" prefWidth="150.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
         <MFXTextField fx:id="count" floatingText="Kişi Adet" prefWidth="150.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-        <MFXButton text="Rezervasyon" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+        <MFXButton onAction="#reserve" text="Rezervasyon" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
     </children>
 
 </GridPane>

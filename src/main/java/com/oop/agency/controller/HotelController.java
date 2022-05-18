@@ -3,6 +3,7 @@ package com.oop.agency.controller;
 import com.oop.agency.model.City;
 import com.oop.agency.model.Hotel;
 import com.oop.agency.object.CityList;
+import com.oop.agency.object.ServiceFacade;
 import com.oop.agency.repository.CityRepository;
 import com.oop.agency.repository.HotelRepository;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
@@ -12,18 +13,18 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.util.StringConverter;
+import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 
 @Component
@@ -43,6 +44,9 @@ public class HotelController {
     @Autowired
     HotelRepository hotelRepository;
 
+    @Autowired
+    private ApplicationContext context;
+
 
     public ObservableList<Hotel> getHotel_list() {
         City selectedCity = (City) city_cbx.getSelectedItem();
@@ -56,13 +60,16 @@ public class HotelController {
         StringConverter<City> converter = FunctionalStringConverter.to(city -> (city == null) ? "" : city.getSehir_adi());
         city_cbx.setConverter(converter);
         city_cbx.setItems(object.getList(cityRepository));
+        city_cbx.selectIndex(4);
     }
 
     public void search(ActionEvent actionEvent) throws IOException {
         itemPane.getChildren().clear();
+        ServiceFacade serviceFacade = new ServiceFacade();
+
         for(Hotel hotel : getHotel_list()) {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../component/item.fxml"));
-            GridPane gridPane = loader.load();
+            FxWeaver fxWeaver = context.getBean(FxWeaver.class);
+            GridPane gridPane = fxWeaver.loadView(ItemController.class);
 
             Image image = new Image(hotel.getOtel_url());
             ImageView imageView = (ImageView) gridPane.lookup("#item_img");
