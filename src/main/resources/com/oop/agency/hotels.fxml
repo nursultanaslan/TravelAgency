@@ -12,7 +12,8 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<GridPane stylesheets="css/common.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.oop.agency.controller.HotelController">
+<GridPane xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@css/common.css"
+          fx:controller="com.oop.agency.controller.HotelController">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
    </columnConstraints>
@@ -23,7 +24,7 @@
    <children>
       <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.halignment="CENTER">
          <children>
-            <MFXComboBox fx:id="city_cbx" floatingText="Nereye gitmek istersin?" prefColumnCount="20" />
+            <MFXComboBox id="test" fx:id="city_cbx" floatingText="Nereye gitmek istersin?" prefColumnCount="20" />
             <MFXButton onAction="#search" prefHeight="38.0" prefWidth="100.0" style="-fx-background-color: #f51251;" text="Ara" textFill="WHITESMOKE">
                <font>
                   <Font name="Open Sans ExtraBold" size="12.0" />
