@@ -15,7 +15,10 @@ public class Hotel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer otel_id;
-    private String otel_adi;
+
+    @Column(name = "otel_adi")
+    private String name;
+
     private String otel_url;
     private String otel_detay;
 
