@@ -124,6 +124,6 @@
             <Insets right="20.0" top="20.0" />
          </padding>
       </HBox>
-      <StackPane fx:id="contentPane" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="320.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="70.0" />
+      <StackPane fx:id="contentPane" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="320.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="70.0" />
    </children>
 </AnchorPane>

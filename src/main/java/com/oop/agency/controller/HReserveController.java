@@ -12,6 +12,8 @@ import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Locale;
+
 @Component
 @FxmlView("../hotel_reserve.fxml")
 public class HReserveController {
@@ -39,6 +41,10 @@ public class HReserveController {
 
     @FXML
     public void initialize() {
+
+        if(date != null)
+            date.setLocale(Locale.forLanguageTag("tr-TR"));
+
         serviceFacade = new ServiceFacade();
         hotelReserve = new HotelReserve();
     }

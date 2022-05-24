@@ -2,29 +2,77 @@
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.materialfx.controls.MFXDatePicker?>
+<?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<GridPane prefHeight="500.0" prefWidth="500.0" stylesheets="../css/common.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="com.oop.agency.controller.DetailController">
-    <columnConstraints>
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-    </columnConstraints>
-    <rowConstraints>
-        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-    </rowConstraints>
-    <children>
-        <MFXTextField fx:id="name" floatingText="Ad Soyad" prefWidth="150.0" GridPane.halignment="CENTER" />
-        <MFXTextField fx:id="phone" floatingText="Telefon" prefWidth="150.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
-        <MFXDatePicker fx:id="date" floatingText="Tarih" prefWidth="150.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-        <MFXTextField fx:id="email" floatingText="E-posta" prefWidth="150.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-        <MFXTextField fx:id="count" floatingText="Kişi Adet" prefWidth="150.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-        <MFXButton text="Rezervasyon" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-    </children>
-
-</GridPane>
+<AnchorPane stylesheets="@../css/common.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.oop.agency.controller.DetailController">
+   <children>
+      <MFXScrollPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <content>
+            <Pane>
+               <children>
+                  <ImageView fx:id="detail_img1" fitHeight="200.0" fitWidth="420.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="detail_img2" fitHeight="100.0" fitWidth="250.0" layoutX="456.0" layoutY="119.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../static/placeholder.png" />
+                     </image></ImageView>
+                  <ImageView fx:id="detail_img3" fitHeight="100.0" fitWidth="250.0" layoutX="456.0" layoutY="14.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../static/placeholder.png" />
+                     </image></ImageView>
+                  <Label fx:id="detail_name" layoutX="58.0" layoutY="249.0" text="Suite">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="detail_location" layoutX="58.0" layoutY="301.0" text="Alanya, ANTALYA" />
+                  <Label fx:id="detail_desc" layoutX="58.0" layoutY="340.0" prefWidth="350.0" text="It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English." wrapText="true" />
+                  <Pane layoutX="456.0" layoutY="272.0" prefHeight="400.0" prefWidth="300.0" styleClass="grid-background">
+                     <children>
+                        <Label layoutX="48.0" layoutY="39.0" text="Ad Soyad">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                        </Label>
+                        <MFXTextField fx:id="name" floatMode="BORDER" floatingText="Ad Soyad" layoutX="48.0" layoutY="63.0" prefHeight="30.0" prefWidth="204.0" />
+                        <Label layoutX="48.0" layoutY="115.0" text="Telefon">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                        </Label>
+                        <MFXTextField fx:id="phone" floatMode="BORDER" floatingText="Telefon" layoutX="48.0" layoutY="139.0" prefHeight="30.0" prefWidth="204.0" />
+                        <Label layoutX="48.0" layoutY="186.0" text="E-Posta">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                        </Label>
+                        <MFXTextField fx:id="email" floatMode="BORDER" floatingText="E-Posta" layoutX="48.0" layoutY="210.0" prefHeight="30.0" prefWidth="204.0" />
+                        <MFXDatePicker fx:id="date" floatMode="BORDER" floatingText="Tarih" layoutX="50.0" layoutY="287.0" />
+                        <Label layoutX="48.0" layoutY="262.0" text="Tarih">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                        </Label>
+                        <MFXButton layoutX="161.0" layoutY="348.0" onAction="#reserve" style="-fx-background-color: #f51251;" text="Rezervasyon" textFill="WHITESMOKE">
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                           <font>
+                              <Font name="System Bold Italic" size="12.0" />
+                           </font>
+                        </MFXButton>
+                     </children>
+                  </Pane>
+               </children>
+            </Pane>
+         </content>
+      </MFXScrollPane>
+   </children>
+</AnchorPane>

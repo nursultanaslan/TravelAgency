@@ -27,3 +27,9 @@
 .mfx-combo-box .virtual-flow .mfx-combo-box-cell:selected {
 	-fx-background-color: derive(-primary-color, 50%);
 }
+
+.grid-background {
+	-fx-background-color: white;
+	-fx-background-radius: 10;
+	-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.12, -1.0, 2.0);
+}

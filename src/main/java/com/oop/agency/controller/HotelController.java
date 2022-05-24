@@ -8,12 +8,11 @@ import com.oop.agency.repository.CityRepository;
 import com.oop.agency.repository.HotelRepository;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.utils.others.FunctionalStringConverter;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -25,6 +24,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 import java.io.IOException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 
 @Component
@@ -66,21 +67,26 @@ public class HotelController {
     public void search(ActionEvent actionEvent) throws IOException {
         itemPane.getChildren().clear();
         ServiceFacade serviceFacade = new ServiceFacade();
+        ExecutorService service = Executors.newCachedThreadPool();
 
         for(Hotel hotel : getHotel_list()) {
-            FxWeaver fxWeaver = context.getBean(FxWeaver.class);
-            GridPane gridPane = fxWeaver.loadView(ItemController.class);
+            Platform.runLater(() -> {
+                FxWeaver fxWeaver = context.getBean(FxWeaver.class);
+                ItemController controller = fxWeaver.loadController(ItemController.class);
+                controller.setCurHotel(hotel);
+                GridPane gridPane = fxWeaver.loadView(controller.getClass());
 
-            Image image = new Image(hotel.getOtel_url());
-            ImageView imageView = (ImageView) gridPane.lookup("#item_img");
-            imageView.setImage(image);
+                Image image = new Image(hotel.getOtel_url());
+                ImageView imageView = (ImageView) gridPane.lookup("#item_img");
+                imageView.setImage(image);
 
-            Label title_lbl = (Label) gridPane.lookup("#title_lbl");
-            title_lbl.setText(hotel.getOtel_adi());
-            Label city_lbl = (Label) gridPane.lookup("#city_lbl");
-            city_lbl.setText(hotel.getCity().getSehir_adi());
+                Label title_lbl = (Label) gridPane.lookup("#title_lbl");
+                title_lbl.setText(hotel.getName());
+                Label city_lbl = (Label) gridPane.lookup("#city_lbl");
+                city_lbl.setText(hotel.getCity().getSehir_adi());
 
-            itemPane.getChildren().add(gridPane);
+                itemPane.getChildren().add(gridPane);
+            });
         }
     }
 }

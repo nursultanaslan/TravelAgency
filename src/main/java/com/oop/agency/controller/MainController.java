@@ -6,12 +6,9 @@ import io.github.palexdev.materialfx.dialogs.MFXGenericDialog;
 import io.github.palexdev.materialfx.dialogs.MFXGenericDialogBuilder;
 import io.github.palexdev.materialfx.dialogs.MFXStageDialog;
 import io.github.palexdev.materialfx.enums.ScrimPriority;
-import io.github.palexdev.materialfx.font.MFXFontIcon;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -21,17 +18,7 @@ import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
-import org.springframework.ui.Model;
-
-import javax.print.DocFlavor;
-import java.io.IOException;
-import java.net.URL;
-import java.util.Map;
-import java.util.Objects;
-import java.util.ResourceBundle;
 
 @Component
 @FxmlView("../home.fxml")
@@ -130,8 +117,10 @@ public class MainController {
 
         if (id.equals("hotels"))
             navigate(HotelController.class);
-        else if (id.equals("hreserve"))
-            navigate(HReserveController.class);
+//        else if (id.equals("hreserve"))
+//            navigate(HReserveController.class);
+        else if (id.equals("treserve"))
+            navigate(TReserveController.class);
         else
             navigate(null);
     }
